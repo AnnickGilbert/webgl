@@ -1,0 +1,204 @@
+<!--<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Carte 3D avec bâtiments et relief</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='/styles.css'>
+</head>
+
+<body>
+    <div id='map'></div>
+    <script src='/app.js'></script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suivi de véhicules en 3D</title>
+
+    <!-- Mapbox GL JS -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+
+    <!-- Mapbox GL Geocoder -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
+      type="text/css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      #vehicleTable {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1;
+      }
+
+      #vehicleTable table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #vehicleTable th,
+      #vehicleTable td {
+        padding: 5px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 12px;
+      }
+
+      #controlPanel {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+        display: none;
+      }
+
+      #controlPanel h3 {
+        margin-top: 0;
+      }
+
+      #controlPanel .form-group {
+        margin-bottom: 10px;
+      }
+
+      #controlPanel label {
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      #controlPanel input {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+      }
+
+      #controlPanel button {
+        padding: 8px 12px;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      #controlPanel button:hover {
+        background-color: #2563eb;
+      }
+
+      #openControlBtn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        z-index: 1;
+      }
+
+      #openControlBtn:hover {
+        background-color: #2563eb;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+
+    <button id="openControlBtn">Ajouter des véhicules</button>
+
+    <div id="controlPanel">
+      <h3>Paramètres des véhicules</h3>
+
+      <div class="form-group">
+        <label for="nbVehicles">Nombre de véhicules:</label>
+        <input type="number" id="nbVehicles" value="5" min="1" max="50" />
+      </div>
+
+      <div class="form-group">
+        <label for="minSpeed">Vitesse minimale (km/h):</label>
+        <input type="number" id="minSpeed" value="30" min="5" max="100" />
+      </div>
+
+      <div class="form-group">
+        <label for="maxSpeed">Vitesse maximale (km/h):</label>
+        <input type="number" id="maxSpeed" value="50" min="10" max="130" />
+      </div>
+
+      <div class="form-group">
+        <label for="minPower">Puissance minimale (CV):</label>
+        <input type="number" id="minPower" value="75" min="10" max="500" />
+      </div>
+
+      <div class="form-group">
+        <label for="maxPower">Puissance maximale (CV):</label>
+        <input type="number" id="maxPower" value="150" min="20" max="1000" />
+      </div>
+
+      <button id="addVehiclesBtn">Ajouter</button>
+      <button id="closeControlBtn" style="background-color: #ef4444">
+        Annuler
+      </button>
+    </div>
+
+    <div id="vehicleTable">
+      <h3>Suivi des véhicules</h3>
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Lat</th>
+          <th>Lng</th>
+          <th>Vitesse</th>
+          <th>Puissance</th>
+          <th>Étape suivante</th>
+        </tr>
+        <!-- Les données des véhicules seront injectées ici par JavaScript -->
+      </table>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script src="/app.js"></script>
+  </body>
+</html>

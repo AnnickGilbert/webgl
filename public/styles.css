@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* ... vos styles existants ... */
+
+.mapboxgl-ctrl-geolocate {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+}
+
+.mapboxgl-marker {
+  cursor: move;
+}
+
+.mapboxgl-ctrl-geocoder {
+  min-width: 250px;
+  margin: 10px;
+}
+.mapboxgl-ctrl-geocoder input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.mapboxgl-ctrl-geocoder input:focus {
+  outline: none;
+  border-color: #007aff;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--input:focus {
+  outline: none;
+  border-color: #007aff;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon {
+  width: 20px;
+  height: 20px;
+  background-color: #007aff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon svg {
+  width: 12px;
+  height: 12px;
+  fill: #fff;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:hover {
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:active {
+  background-color: #004a8d;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:focus {
+  outline: none;
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:focus-visible {
+  outline: none;
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:focus-visible svg {
+  fill: #fff;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:focus-visible:hover {
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:focus-visible:active {
+  background-color: #004a8d;
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--icon:focus-visible:active svg {
+  fill: #fff;
+}
+.mapboxgl-ctrl-geocoder
+  .mapboxgl-ctrl-geocoder--icon:focus-visible:active:hover {
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder
+  .mapboxgl-ctrl-geocoder--icon:focus-visible:active:focus {
+  outline: none;
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder
+  .mapboxgl-ctrl-geocoder--icon:focus-visible:active:focus
+  svg {
+  fill: #fff;
+}
+.mapboxgl-ctrl-geocoder
+  .mapboxgl-ctrl-geocoder--icon:focus-visible:active:focus:hover {
+  background-color: #005bb5;
+}
+.mapboxgl-ctrl-geocoder
+  .mapboxgl-ctrl-geocoder--icon:focus-visible:active:focus:active {
+  background-color: #004a8d;
+}
+.mapboxgl-ctrl-geocoder
+  .mapboxgl-ctrl-geocoder--icon:focus-visible:active:focus:active
+  svg {
+  fill: #fff;
+}
